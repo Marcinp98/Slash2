@@ -20,4 +20,8 @@ Content
 *.sln
 *.suo
 *.xcodeproj
+<<<<<<< HEAD
 *.xcworkspace
+=======
+*.xcworkspace
+>>>>>>> a99c767 (First commit Slash2 project)
