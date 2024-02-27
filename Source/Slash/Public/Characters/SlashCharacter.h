@@ -48,14 +48,27 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Input)
 	UInputAction* AttackAction;
 
+	// Callbacks for enhanced input
+
 	void Move(const FInputActionValue& value);
 	void Look(const FInputActionValue& Value);
 	void EKeyPressed();
 	void Attack();
 
+	// Play montage functions
+
+	void PlayAttackMontage();
+
+	UFUNCTION(BlueprintCallable)
+	void AttackEnd();
+
+	bool CanAttack();
 private:
 
 	ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
+
+	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	EActionState ActionState = EActionState::EAS_Unoccupied;
 
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* CameraBoom;
