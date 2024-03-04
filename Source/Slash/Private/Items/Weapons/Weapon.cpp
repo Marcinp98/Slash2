@@ -80,6 +80,8 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		ActorsToIgnore.AddUnique(Actor);
 	}
 
+	//first box trace
+
 	FHitResult BoxHit;
 	UKismetSystemLibrary::BoxTraceSingle(
 		this,
@@ -102,5 +104,32 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 			HitInterface->GetHit(BoxHit.ImpactPoint);
 		}
 		IgnoreActors.AddUnique(BoxHit.GetActor());
+	}
+
+	//second box trace (reversed)
+
+	FHitResult BoxHitSecondReverse;
+	UKismetSystemLibrary::BoxTraceSingle(
+		this,
+		End,
+		Start,
+		FVector(10.f, 10.f, 10.f),
+		BoxTraceStart->GetComponentRotation(),
+		ETraceTypeQuery::TraceTypeQuery1,
+		false,
+		ActorsToIgnore,
+		EDrawDebugTrace::None,
+		BoxHitSecondReverse,
+		true
+	);
+
+	if (BoxHitSecondReverse.GetActor())
+	{
+		IHitInterface* HitInterfaceSecondReverse = Cast<IHitInterface>(BoxHitSecondReverse.GetActor());
+		if (HitInterfaceSecondReverse)
+		{
+			HitInterfaceSecondReverse->GetHit(BoxHitSecondReverse.ImpactPoint);
+		}
+		IgnoreActors.AddUnique(BoxHitSecondReverse.GetActor());
 	}
 }
