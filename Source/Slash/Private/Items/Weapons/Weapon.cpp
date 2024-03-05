@@ -101,7 +101,7 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		IHitInterface* HitInterface = Cast<IHitInterface>(BoxHit.GetActor());
 		if (HitInterface)
 		{
-			HitInterface->GetHit(BoxHit.ImpactPoint);
+			HitInterface->Execute_GetHit(BoxHit.GetActor(), BoxHit.ImpactPoint);
 		}
 		IgnoreActors.AddUnique(BoxHit.GetActor());
 	
@@ -130,7 +130,7 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		IHitInterface* HitInterfaceSecondReverse = Cast<IHitInterface>(BoxHitSecondReverse.GetActor());
 		if (HitInterfaceSecondReverse)
 		{
-			HitInterfaceSecondReverse->GetHit(BoxHitSecondReverse.ImpactPoint);
+			HitInterfaceSecondReverse->Execute_GetHit(BoxHitSecondReverse.GetActor(), BoxHitSecondReverse.ImpactPoint);
 		}
 		IgnoreActors.AddUnique(BoxHitSecondReverse.GetActor());
 	}
