@@ -28,4 +28,6 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UGeometryCollectionComponent* GeometryCollection;
 
+	UPROPERTY(EditAnywhere)
+	UClass* TreasureClass;
 };
