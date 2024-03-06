@@ -29,5 +29,5 @@ private:
 	UGeometryCollectionComponent* GeometryCollection;
 
 	UPROPERTY(EditAnywhere)
-	UClass* TreasureClass;
+	TSubclassOf<class ATreasure> TreasureClass;
 };
