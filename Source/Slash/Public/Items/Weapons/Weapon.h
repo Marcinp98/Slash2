@@ -24,6 +24,7 @@ public:
 	void AttachMeshToSocket(USceneComponent* InParent, const FName& InSocketName);
 	
 	TArray<AActor*> IgnoreActors;
+	TArray<AActor*> ProcessedActors;
 protected:
 	virtual void BeginPlay() override;
 

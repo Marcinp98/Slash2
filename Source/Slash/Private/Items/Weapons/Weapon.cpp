@@ -103,7 +103,7 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		BoxHit,
 		true
 		);
-	if (BoxHit.GetActor())
+	if (BoxHit.GetActor() && !ProcessedActors.Contains(BoxHit.GetActor()))
 	{
 		IHitInterface* HitInterface = Cast<IHitInterface>(BoxHit.GetActor());
 		if (HitInterface)
@@ -121,6 +121,7 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 			this,
 			UDamageType::StaticClass()
 		);
+		ProcessedActors.AddUnique(BoxHit.GetActor());
 	}
 
 	//second box trace (reversed)
@@ -140,7 +141,7 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		true
 	);
 
-	if (BoxHitSecondReverse.GetActor())
+	if (BoxHitSecondReverse.GetActor() && !ProcessedActors.Contains(BoxHitSecondReverse.GetActor()))
 	{
 		IHitInterface* HitInterfaceSecondReverse = Cast<IHitInterface>(BoxHitSecondReverse.GetActor());
 		if (HitInterfaceSecondReverse)
@@ -158,6 +159,8 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 			this,
 			UDamageType::StaticClass()
 		);
-	
+
+		ProcessedActors.AddUnique(BoxHitSecondReverse.GetActor());
 	}
+	ProcessedActors.Empty();
 }
