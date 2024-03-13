@@ -72,9 +72,13 @@ void AEnemy::Die()
 		}
 		AnimInstance->Montage_JumpToSection(SectionName, DeathMontage);
 	}
-
+	if (HealthBarWidget)
+	{
+		HealthBarWidget->SetVisibility(false);
+	}
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	SetLifeSpan(3.f);
+
 }
 
 void AEnemy::PlayHitReactMontage(const FName& SectionName)
