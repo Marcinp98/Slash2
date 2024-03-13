@@ -105,6 +105,14 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		);
 	if (BoxHit.GetActor() && !ProcessedActors.Contains(BoxHit.GetActor()))
 	{
+		UGameplayStatics::ApplyDamage(
+			BoxHit.GetActor(),
+			Damage,
+			GetInstigator()->GetController(),
+			this,
+			UDamageType::StaticClass()
+		);
+
 		IHitInterface* HitInterface = Cast<IHitInterface>(BoxHit.GetActor());
 		if (HitInterface)
 		{
@@ -114,13 +122,6 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 	
 		CreateFields(BoxHit.ImpactPoint);
 	
-		UGameplayStatics::ApplyDamage(
-			BoxHit.GetActor(),
-			Damage,
-			GetInstigator()->GetController(),
-			this,
-			UDamageType::StaticClass()
-		);
 		ProcessedActors.AddUnique(BoxHit.GetActor());
 	}
 
@@ -143,6 +144,14 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 
 	if (BoxHitSecondReverse.GetActor() && !ProcessedActors.Contains(BoxHitSecondReverse.GetActor()))
 	{
+		UGameplayStatics::ApplyDamage(
+			BoxHitSecondReverse.GetActor(),
+			Damage,
+			GetInstigator()->GetController(),
+			this,
+			UDamageType::StaticClass()
+		);
+
 		IHitInterface* HitInterfaceSecondReverse = Cast<IHitInterface>(BoxHitSecondReverse.GetActor());
 		if (HitInterfaceSecondReverse)
 		{
@@ -151,14 +160,6 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		IgnoreActors.AddUnique(BoxHitSecondReverse.GetActor());
 
 		CreateFields(BoxHitSecondReverse.ImpactPoint);
-
-		UGameplayStatics::ApplyDamage(
-			BoxHitSecondReverse.GetActor(),
-			Damage,
-			GetInstigator()->GetController(),
-			this,
-			UDamageType::StaticClass()
-		);
 
 		ProcessedActors.AddUnique(BoxHitSecondReverse.GetActor());
 	}
