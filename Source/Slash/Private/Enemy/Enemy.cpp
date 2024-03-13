@@ -32,6 +32,43 @@ void AEnemy::BeginPlay()
 void AEnemy::Die()
 {
 	// TODO: Play Death Montage
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && DeathMontage)
+	{
+		AnimInstance->Montage_Play(DeathMontage);
+		const int32 Selection = FMath::RandRange(0, 5);
+		FName SectionName = FName();
+		switch (Selection)
+		{
+		case 0:
+			SectionName = FName("Death1");
+			DeathPose = EDeathPose::EDP_Death1;
+			break;
+		case 1:
+			SectionName = FName("Death2");
+			DeathPose = EDeathPose::EDP_Death2;
+			break;
+		case 2:
+			SectionName = FName("Death3");
+			DeathPose = EDeathPose::EDP_Death3;
+			break;
+		case 3:
+			SectionName = FName("Death4");
+			DeathPose = EDeathPose::EDP_Death4;
+			break;
+		case 4:
+			SectionName = FName("Death5");
+			DeathPose = EDeathPose::EDP_Death5;
+			break;
+		case 5:
+			SectionName = FName("Death6");
+			DeathPose = EDeathPose::EDP_Death6;
+			break;
+		default:
+			break;
+		}
+		AnimInstance->Montage_JumpToSection(SectionName, DeathMontage);
+	}
 }
 
 void AEnemy::PlayHitReactMontage(const FName& SectionName)
@@ -67,43 +104,6 @@ void AEnemy::GetHit_Implementation(const FVector& ImpactPoint)
 	else
 	{
 		Die();
-		UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-		if (AnimInstance && DeathMontage)
-		{
-			AnimInstance->Montage_Play(DeathMontage);
-			const int32 Selection = FMath::RandRange(0, 5);
-			FName SectionName = FName();
-			switch (Selection)
-			{
-			case 0:
-				SectionName = FName("Death1");
-				DeathPose = EDeathPose::EDP_Death1;
-				break;
-			case 1:
-				SectionName = FName("Death2");
-				DeathPose = EDeathPose::EDP_Death2;
-				break;
-			case 2:
-				SectionName = FName("Death3");
-				DeathPose = EDeathPose::EDP_Death3;
-				break;
-			case 3:
-				SectionName = FName("Death4");
-				DeathPose = EDeathPose::EDP_Death4;
-				break;
-			case 4:
-				SectionName = FName("Death5");
-				DeathPose = EDeathPose::EDP_Death5;
-				break;
-			case 5:
-				SectionName = FName("Death6");
-				DeathPose = EDeathPose::EDP_Death6;
-				break;
-			default:
-				break;
-			}
-			AnimInstance->Montage_JumpToSection(SectionName, DeathMontage);
-		}
 	}
 
 	if (HitSound)
