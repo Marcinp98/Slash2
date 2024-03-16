@@ -72,11 +72,16 @@ private:
 	UPROPERTY(EditAnywhere)
 	double PatrolRadius = 200.f;
 
+	FTimerHandle PatrolTimer;
+	void PatrolTimerFinished();
+
 protected:
 	virtual void BeginPlay() override;
 
 	void Die();
 	bool InTargetRange(AActor* Target, double Radius);
+	void MoveToTarget(AActor* Target);
+	AActor* ChoosePatrolTarget();
 
 	/**
 	* Animation montages
