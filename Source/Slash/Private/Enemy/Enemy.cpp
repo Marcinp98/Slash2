@@ -32,6 +32,7 @@ AEnemy::AEnemy()
 
 void AEnemy::Tick(float DeltaTime)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Current enemy state: %s"), *UEnum::GetValueAsString(EnemyState));
 	Super::Tick(DeltaTime);
 	if (IsDead()) return;
 	if (EnemyState > EEnemyState::EES_Patrolling)
@@ -68,10 +69,10 @@ void AEnemy::Destroyed()
 	}
 }
 
-void AEnemy::GetHit_Implementation(const FVector& ImpactPoint)
+void AEnemy::GetHit_Implementation(const FVector& ImpactPoint, AActor* Hitter)
 {
-	Super::GetHit_Implementation(ImpactPoint);
-	ShowHealthBar();
+	Super::GetHit_Implementation(ImpactPoint, Hitter);
+	if (!IsDead()) ShowHealthBar();
 	ClearPatrolTimer();
 }
 
