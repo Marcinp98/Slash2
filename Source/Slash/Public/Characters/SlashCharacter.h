@@ -81,6 +81,7 @@ protected:
 private:
 
 	void InitializeSlashOverlay();
+	void SetHUDHealth();
 
 	/** Character Components */
 	UPROPERTY(VisibleAnywhere)
