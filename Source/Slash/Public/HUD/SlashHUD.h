@@ -6,10 +6,6 @@
 #include "GameFramework/HUD.h"
 #include "SlashHUD.generated.h"
 
-/**
- * 
- */
-
 class USlashOverlay;
 
 UCLASS()
@@ -23,4 +19,8 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Slash)
 	TSubclassOf<USlashOverlay> SlashOverlayClass;
 
+	UPROPERTY()
+	USlashOverlay* SlashOverlay;
+public:
+	FORCEINLINE USlashOverlay* GetSlashOverlay() const { return SlashOverlay; }
 };
