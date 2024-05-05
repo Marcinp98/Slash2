@@ -240,6 +240,7 @@ void ASlashCharacter::Die()
 	Super::Die();
 
 	ActionState = EActionState::EAS_Dead;
+	DisableMeshCollision();
 }
 
 void ASlashCharacter::FinishEquipping()
