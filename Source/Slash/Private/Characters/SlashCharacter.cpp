@@ -77,7 +77,10 @@ void ASlashCharacter::GetHit_Implementation(const FVector& ImpactPoint, AActor* 
 	Super::GetHit_Implementation(ImpactPoint, Hitter);
 
 	SetWeaponCollisionEnabled(ECollisionEnabled::NoCollision);
-	ActionState = EActionState::EAS_HitReaction;
+	if (Attributes && Attributes->GetHealthPercent() > 0.f)
+	{
+		ActionState = EActionState::EAS_HitReaction;
+	}
 }
 
 void ASlashCharacter::BeginPlay()
@@ -124,9 +127,11 @@ void ASlashCharacter::Look(const FInputActionValue& Value)
 
 void ASlashCharacter::Jump()
 {
-	Super::Jump();
+	if (IsUnoccupied())
+	{
+		Super::Jump();
+	}
 }
-
 
 void ASlashCharacter::EKeyPressed()
 {
@@ -230,6 +235,13 @@ void ASlashCharacter::PlayEquipMontage(const FName& SectionName)
 	}
 }
 
+void ASlashCharacter::Die()
+{
+	Super::Die();
+
+	ActionState = EActionState::EAS_Dead;
+}
+
 void ASlashCharacter::FinishEquipping()
 {
 	ActionState = EActionState::EAS_Unoccupied;
@@ -238,6 +250,11 @@ void ASlashCharacter::FinishEquipping()
 void ASlashCharacter::HitReactEnd()
 {
 	ActionState = EActionState::EAS_Unoccupied;
+}
+
+bool ASlashCharacter::IsUnoccupied()
+{
+	return ActionState == EActionState::EAS_Unoccupied;
 }
 
 void ASlashCharacter::InitializeSlashOverlay()
