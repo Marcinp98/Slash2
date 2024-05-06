@@ -13,7 +13,7 @@ void USlashOverlay::SetHealthBarPercent(float Percent)
 	}
 }
 
-void USlashOverlay::SetStaminaBatPercent(float Percent)
+void USlashOverlay::SetStaminaBarPercent(float Percent)
 {
 	if (StaminaProgessBar)
 	{
