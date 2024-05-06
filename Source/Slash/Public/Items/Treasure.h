@@ -20,4 +20,6 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, Category = "Treasue Properties")
 	int32 Gold;
+public:
+	FORCEINLINE int32 GetGold() const { return Gold; }
 };
